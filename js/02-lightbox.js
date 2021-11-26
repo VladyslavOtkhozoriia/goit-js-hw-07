@@ -19,10 +19,16 @@ const renderImage = ({ preview, original, description }) => {
 const galleryElements = galleryItems.map(renderImage).join(" ");
 galleryBoxRef.insertAdjacentHTML("afterbegin", galleryElements);
 
-const getUrlByClickOnGalleryBoxRef = function (element) {
-  element.preventDefault();
+let imageView = new SimpleLightbox(".gallery a", {
+  animationSpeed: 500,
+  fadeSpeed: 500,
+  captions: true,
+  captionType: "attr",
+  captionsData: "alt",
+  captionPosition: "bottom",
+  captionDelay: 250,
+});
 
-  new SimpleLightbox(".gallery a", { captionsData: "alt", captionDelay: 250 });
-};
-
-galleryBoxRef.addEventListener("click", getUrlByClickOnGalleryBoxRef);
+imageView.on(() => {
+  imageView.next();
+});
